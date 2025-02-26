@@ -1,0 +1,50 @@
+<!-- pages/index/index.wxml -->
+<view class="container">
+  <!-- 顶部操作栏 -->
+  <view class="flex-row justify-between padding">
+    <text class="text-primary">我的笔记</text>
+    <view class="btn-primary" bindtap="goToEdit">新建笔记</view>
+  </view>
+
+  <!-- 内容列表 -->
+  <view class="content-list">
+    <block wx:for="{{contentList}}" wx:key="_id">
+      <view class="card">
+        <!-- 文字内容 -->
+        <view class="text-content">
+          <text>{{item.text}}</text>
+        </view>
+
+        <!-- 图片内容 -->
+        <view class="image-list flex-row flex-wrap" wx:if="{{item.imageList && item.imageList.length > 0}}">
+          <block wx:for="{{item.imageList}}" wx:for-item="img" wx:key="*this">
+            <image 
+              class="image-item" 
+              src="{{img}}" 
+              mode="aspectFill" 
+              data-current="{{img}}" 
+              data-urls="{{item.imageList}}" 
+              bindtap="previewImage"
+            />
+          </block>
+        </view>
+
+        <!-- 底部信息栏 -->
+        <view class="flex-row justify-between margin-top">
+          <text class="text-gray">{{item.createTime}}</text>
+          <view 
+            class="delete-btn" 
+            data-id="{{item._id}}" 
+            data-image-list="{{item.imageList}}"
+            bindtap="deleteContent"
+          >删除</view>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <!-- 加载提示 -->
+  <view class="loading-tip text-gray" wx:if="{{loading}}">加载中...</view>
+  <view class="loading-tip text-gray" wx:if="{{!hasMore && contentList.length > 0}}">没有更多内容了</view>
+  <view class="loading-tip text-gray" wx:if="{{!loading && contentList.length === 0}}">暂无内容</view>
+</view>

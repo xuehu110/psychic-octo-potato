@@ -1,0 +1,79 @@
+<!--pages/user/user.wxml-->
+<view class="user-container">
+  <!-- 用户基本信息展示区 -->
+  <view class="user-info">
+    <view class="avatar-container">
+      <image class="avatar" src="{{userInfo.avatarUrl || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+      <view class="edit-avatar" bindtap="changeAvatar">
+        <text class="iconfont icon-edit"></text>
+      </view>
+    </view>
+    <view class="info-text">
+      <text class="nickname">{{userInfo.nickName || '未设置昵称'}}</text>
+      <text class="introduction">{{userInfo.introduction || '这个人很懒，还没有写简介~'}}</text>
+    </view>
+  </view>
+
+  <!-- 用户信息编辑区 -->
+  <view class="edit-section">
+    <view class="edit-item" bindtap="editUserInfo" data-type="nickname">
+      <text class="item-label">昵称</text>
+      <view class="item-content">
+        <text>{{userInfo.nickName || '未设置'}}</text>
+        <text class="iconfont icon-right"></text>
+      </view>
+    </view>
+
+    <view class="edit-item" bindtap="editUserInfo" data-type="introduction">
+      <text class="item-label">个人简介</text>
+      <view class="item-content">
+        <text>{{userInfo.introduction || '未设置'}}</text>
+        <text class="iconfont icon-right"></text>
+      </view>
+    </view>
+
+    <view class="edit-item" bindtap="showUserInfoModal">
+      <text class="item-label">更多信息</text>
+      <view class="item-content">
+        <text class="iconfont icon-right"></text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 用户详细信息模态框 -->
+  <view class="modal" wx:if="{{showInfoModal}}">
+    <view class="modal-mask" bindtap="hideUserInfoModal"></view>
+    <view class="modal-content">
+      <view class="modal-header">
+        <text class="modal-title">个人信息</text>
+        <text class="modal-close" bindtap="hideUserInfoModal">×</text>
+      </view>
+      <view class="modal-body">
+        <view class="info-item">
+          <text class="info-label">性别</text>
+          <picker bindchange="bindGenderChange" value="{{userInfo.gender}}" range="{{genderArray}}">
+            <view class="picker-content">{{genderArray[userInfo.gender] || '请选择'}}</view>
+          </picker>
+        </view>
+        <view class="info-item">
+          <text class="info-label">年龄段</text>
+          <picker bindchange="bindAgeGroupChange" value="{{userInfo.ageGroup}}" range="{{ageGroupArray}}">
+            <view class="picker-content">{{userInfo.ageGroup || '请选择'}}</view>
+          </picker>
+        </view>
+        <view class="info-item">
+          <text class="info-label">兴趣爱好</text>
+          <input class="info-input" value="{{userInfo.interests}}" placeholder="请输入兴趣爱好" bindinput="bindInterestsInput" />
+        </view>
+        <view class="info-item">
+          <text class="info-label">职业</text>
+          <input class="info-input" value="{{userInfo.occupation}}" placeholder="请输入职业" bindinput="bindOccupationInput" />
+        </view>
+      </view>
+      <view class="modal-footer">
+        <button class="btn-cancel" bindtap="hideUserInfoModal">取消</button>
+        <button class="btn-confirm" bindtap="saveUserInfo">保存</button>
+      </view>
+    </view>
+  </view>
+</view>

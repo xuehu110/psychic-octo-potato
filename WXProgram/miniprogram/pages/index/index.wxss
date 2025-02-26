@@ -1,0 +1,35 @@
+/* pages/index/index.wxss */
+.content-list {
+  width: 100%;
+  padding: 20rpx;
+  box-sizing: border-box;
+}
+
+.text-content {
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.6;
+  word-break: break-all;
+}
+
+.image-list {
+  margin-top: 20rpx;
+  gap: 10rpx;
+}
+
+.image-item {
+  width: 220rpx;
+  height: 220rpx;
+  border-radius: 8rpx;
+}
+
+.delete-btn {
+  color: #ff4d4f;
+  font-size: 24rpx;
+}
+
+.loading-tip {
+  text-align: center;
+  padding: 20rpx;
+  font-size: 24rpx;
+}
