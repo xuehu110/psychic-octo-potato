@@ -1,0 +1,52 @@
+<!-- pages/edit/edit.wxml -->
+<view class="container">
+  <!-- 文字输入区域 -->
+  <view class="edit-area">
+    <textarea
+      class="text-input"
+      placeholder="请输入内容..."
+      value="{{text}}"
+      bindinput="onInput"
+      maxlength="-1"
+    ></textarea>
+  </view>
+
+  <!-- 图片列表 -->
+  <view class="image-list flex-row flex-wrap">
+    <block wx:for="{{imageList}}" wx:key="*this">
+      <view class="image-item-wrapper">
+        <image
+          class="image-item"
+          src="{{item}}"
+          mode="aspectFill"
+          data-current="{{item}}"
+          bindtap="previewImage"
+        />
+        <view
+          class="delete-icon"
+          data-index="{{index}}"
+          bindtap="deleteImage"
+        >×</view>
+      </view>
+    </block>
+
+    <!-- 添加图片按钮 -->
+    <view
+      class="add-image-btn"
+      bindtap="chooseImage"
+      wx:if="{{imageList.length < 9}}"
+    >
+      <text class="add-icon">+</text>
+    </view>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="bottom-bar">
+    <button
+      class="save-btn"
+      type="primary"
+      bindtap="saveContent"
+      loading="{{isSubmitting}}"
+    >保存</button>
+  </view>
+</view>
